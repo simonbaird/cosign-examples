@@ -5,7 +5,7 @@ TEST_REPO=quay.io/sbaird/nvda-test
 TEST_IMG=$(TEST_REPO):latest
 
 build:
-	podman build . -t $(TEST_IMG) --no-cache
+	podman build . -t $(TEST_IMG) --no-cache --label build-timestamp=$(shell date +%s%N)
 
 push:
 	podman push $(TEST_IMG)
