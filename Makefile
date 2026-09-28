@@ -29,6 +29,13 @@ clear-signing-key:
 
 #-----------------------------------------------------------------------------
 
+# See also https://raw.githubusercontent.com/sigstore/root-signing/refs/heads/main/targets/signing_config.v0.2.json
+# This generates an empty signing config, which I think works fine for signing with long-lived keys.
+signing-config.json:
+	$(COSIGN) signing-config create > $@
+
+#-----------------------------------------------------------------------------
+
 sign-attest:
 	@./sign-attest.sh
 

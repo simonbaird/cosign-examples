@@ -4,6 +4,8 @@ set -euo pipefail
 
 source ./common.sh
 
+if [[ ${USE_REKOR:-""} == "1" ]]; then
+
 h1 "cosign verify"
 COSIGN_PASSWORD=$SIGNING_KEY_PASSWORD $COSIGN verify \
   --key $PUBLIC_KEY \
@@ -18,6 +20,8 @@ COSIGN_PASSWORD=$SIGNING_KEY_PASSWORD $COSIGN verify-attestation \
   $TEST_IMG
 
 pause
+
+fi
 
 h1 "cosign verify (ignoring rekor)"
 COSIGN_PASSWORD=$SIGNING_KEY_PASSWORD $COSIGN verify \
