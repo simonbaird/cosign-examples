@@ -26,3 +26,14 @@ signing-key:
 
 clear-signing-key:
 	rm -rf signing-key
+
+#-----------------------------------------------------------------------------
+
+sign-attest:
+	@./sign-attest.sh
+
+inspect:
+	@./inspect.sh
+
+verify:
+	@./verify.sh
