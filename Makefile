@@ -47,5 +47,22 @@ verify:
 
 #-----------------------------------------------------------------------------
 
+MIRROR_DATA_DIR=mirror-data
+
+# I happen to own this quay org:
+MIRROR_TARGET=quay.io/konflux-local-test
+
+mirror-to-disk:
+	@mkdir -p mirror-data
+	oc-mirror -c ./isc.yaml file://$(MIRROR_DATA_DIR) --v2
+
+# It pushes to https://quay.io/repository/konflux-local-test/sbaird/nvda-test which is
+# fine for our purposes. (Generally oc-mirror is expecting you'll push to the same path
+# in a different registry, rather than a different path in the same registry.)
+disk-to-mirror:
+	oc-mirror -c ./isc.yaml --from file://$(MIRROR_DATA_DIR) docker://$(MIRROR_TARGET) --v2
+
+#-----------------------------------------------------------------------------
+
 create-transcript:
 	@NO_PAUSE=1 $(MAKE) --no-print-directory build-push sign-attest inspect verify 2>&1 | tee script.out
