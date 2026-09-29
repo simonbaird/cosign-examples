@@ -1,0 +1,14 @@
+{
+  "buildDefinition": {
+    "buildType": "https://example.com/build-type/v1",
+    "externalParameters": {},
+    "internalParameters": {},
+    "resolvedDependencies": []
+  },
+  "runDetails": {
+    "builder": {
+      "id": "https://example.com/builder"
+    },
+    "metadata": {}
+  }
+}

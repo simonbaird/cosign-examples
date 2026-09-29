@@ -36,29 +36,11 @@ pause
 
 h1 "Create and attest a minimal slsa provenance"
 
-MINIMAL_PROVENANCE='
-{
-  "buildDefinition": {
-    "buildType": "https://example.com/build-type/v1",
-    "externalParameters": {},
-    "internalParameters": {},
-    "resolvedDependencies": []
-  },
-  "runDetails": {
-    "builder": {
-      "id": "https://example.com/builder"
-    },
-    "metadata": {}
-  }
-}
-'
-
 pause-then-run "COSIGN_PASSWORD=$SIGNING_KEY_PASSWORD $COSIGN attest \
 $REKOR_OPTS \
 --key $SIGNING_KEY \
 --type "https://slsa.dev/provenance/v1" \
---predicate - \
-"'$TEST_IMG'" \
-<<< '$MINIMAL_PROVENANCE'"
+--predicate minimal-provenance.json \
+"'$TEST_IMG'
 
 pause
