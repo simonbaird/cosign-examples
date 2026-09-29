@@ -4,7 +4,8 @@ set -euo pipefail
 
 source ./helpers.sh
 
-COSIGN=/usr/local/bin/cosign
+COSIGN=cosign
+#COSIGN=/usr/local/bin/cosign
 
 TEST_REPO=quay.io/sbaird/nvda-test
 UNRESOLVED_TEST_IMG=${TEST_REPO}:latest
