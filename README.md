@@ -167,3 +167,28 @@ The following checks were performed on each of these signatures:
 {"payload":"eyJfdHlwZSI6Imh0dHBzOi8vaW4tdG90by5pby9TdGF0ZW1lbnQvdjAuMSIsInN1YmplY3QiOlt7Im5hbWUiOiJxdWF5LmlvL3NiYWlyZC9udmRhLXRlc3QiLCJkaWdlc3QiOnsic2hhMjU2IjoiOTEwMjk1NGQwMTE2NTQwNDYwNTAzM2IwNzk2OWQ3OGY2MzA0OWRmNjdmZDllYTFiNzg4MGE4OWFiMjkzODkwZSJ9fV0sInByZWRpY2F0ZVR5cGUiOiJodHRwczovL3Nsc2EuZGV2L3Byb3ZlbmFuY2UvdjEiLCJwcmVkaWNhdGUiOnsiYnVpbGREZWZpbml0aW9uIjp7ImJ1aWxkVHlwZSI6Imh0dHBzOi8vZXhhbXBsZS5jb20vYnVpbGQtdHlwZS92MSIsImV4dGVybmFsUGFyYW1ldGVycyI6e30sImludGVybmFsUGFyYW1ldGVycyI6e30sInJlc29sdmVkRGVwZW5kZW5jaWVzIjpbXX0sInJ1bkRldGFpbHMiOnsiYnVpbGRlciI6eyJpZCI6Imh0dHBzOi8vZXhhbXBsZS5jb20vYnVpbGRlciJ9LCJtZXRhZGF0YSI6e319fX0=","payloadType":"application/vnd.in-toto+json","signatures":[{"sig":"MEUCIDOkA36cQxb3HzYtmQ3EsrbIxK5+9rf11pFl+jCDva5bAiEAkAunNpARnJjQEIPaDFV7jnNrqUTKBXScE/gCApf986I="}]}
 
 ```
+
+## Not fully scripted parts
+
+Mirroring with oc-mirror:
+
+```
+make mirror-to-disk
+make disk-to-mirror
+```
+
+Mirroring with oras:
+
+```
+make oras-mirror-to-disk
+make oras-disk-to-mirror
+```
+
+Then uncommenting one of the `TEST_IMG=` lines in `common.sh` lets you run
+`make inspect` and `make verify` against the mirror.
+
+## Conclusion
+
+Using `oc-mirror` doesn't preserve the artifacts linked via OCI referrers
+(meaning the signatures and attestations do not get mirrored), but using `oras
+cp -r` does.
