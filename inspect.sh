@@ -4,6 +4,9 @@ set -euo pipefail
 
 source ./common.sh
 
+show 'TEST_IMG' $TEST_IMG
+show 'Digest' $(oras resolve $TEST_IMG)
+
 h1 "oras discover"
 pause-then-run 'oras discover --format tree $TEST_IMG'
 

@@ -4,6 +4,9 @@ set -euo pipefail
 
 source ./common.sh
 
+show 'TEST_IMG' $TEST_IMG
+show 'Digest' $(oras resolve $TEST_IMG)
+
 if [[ ${USE_REKOR:-""} == "1" ]]; then
 
 h1 "cosign verify"
