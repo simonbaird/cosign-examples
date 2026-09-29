@@ -17,8 +17,15 @@ function pause() {
   local msg="${1:-$default_msg}"
 
   nl
-  read -p "$msg"
-  nl
+  if [[ ${NO_PAUSE:-""} == 1 ]]; then
+    if [[ "$msg" != "$default_msg" ]]; then
+      echo "$msg"
+      nl
+    fi
+  else
+    read -p "$msg"
+    nl
+  fi
 }
 
 # Pretty-print a command line

@@ -14,7 +14,7 @@ pause-then-run "$COSIGN tree "'$TEST_IMG'
 
 pause
 
-h1 "View attestations (notice the image sig is actually an attestation with no predicate)"
+h1 "View attestations (notice the image sig is actually an attestation with an empty predicate)"
 
 pause-then-run "$COSIGN download attestation "'$TEST_IMG'" | jq '.dsseEnvelope.payload | @base64d |fromjson'"
 

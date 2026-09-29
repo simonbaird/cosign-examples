@@ -44,3 +44,8 @@ inspect:
 
 verify:
 	@./verify.sh
+
+#-----------------------------------------------------------------------------
+
+create-transcript:
+	@NO_PAUSE=1 $(MAKE) --no-print-directory build-push sign-attest inspect verify 2>&1 | tee script.out
