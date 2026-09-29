@@ -64,5 +64,21 @@ disk-to-mirror:
 
 #-----------------------------------------------------------------------------
 
+# Unlike oc-mirror v2, "oras cp -r" follows the OCI referrers graph, so the
+# image's attestations/signatures (linked via the subject field) come along too.
+ORAS_LAYOUT=oras-mirror-data
+ORAS_MIRROR_REPO=quay.io/sbaird/nvda-test-oras-mirror
+
+# Export the image and its referrers to an on-disk OCI image layout.
+oras-mirror-to-disk:
+	oras cp -r --to-oci-layout $(TEST_IMG) $(ORAS_LAYOUT):latest
+
+# Push from the on-disk layout to the mirror repo, referrers included, and
+# note it lands at exactly $(ORAS_MIRROR_REPO) with no extra path nesting.
+oras-disk-to-mirror:
+	oras cp -r --from-oci-layout $(ORAS_LAYOUT):latest $(ORAS_MIRROR_REPO):latest
+
+#-----------------------------------------------------------------------------
+
 create-transcript:
 	@NO_PAUSE=1 $(MAKE) --no-print-directory build-push sign-attest inspect verify 2>&1 | tee script.out
